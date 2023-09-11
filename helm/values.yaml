@@ -1,0 +1,23 @@
+imageCredentials:
+  registry: 
+  username: 
+  password: 
+  email: 
+
+client:
+  container:
+    image: docker.io/org/image:latest
+    port: 8080
+    imagePullPolicy: Always
+  service:
+    port: 80
+    hostname: client
+  ingress:
+    enabled: true
+    hosts:
+    - tuto-static.domain.com
+    tls:
+      enabled: true
+      secretName:
+    annotations: {}
+    labels: {}
