@@ -1,5 +1,5 @@
 include:
-  - local: "./ci/includes/rules.yml"
+  - local: ./ci/includes/rules.yml
   - project: $CATALOG_PATH
     file: vault-ci.yml
     ref: main
@@ -11,9 +11,7 @@ default:
   image: alpine:latest
 
 variables:
-  TAG: "${CI_COMMIT_REF_SLUG}"
-  DOCKERFILE: Dockerfile
-  REGISTRY_URL: "${REGISTRY_HOST}/${PROJECT_PATH}"
+  REGISTRY_URL: ${REGISTRY_HOST}/${PROJECT_PATH}
 
 stages:
   - read-secret
@@ -26,8 +24,9 @@ read_secret:
 
 docker-build:
   variables:
-    WORKING_DIR: "."
-    IMAGE_NAME: tuto
+    WORKING_DIR: ./
+    DOCKERFILE: ./Dockerfile
+    IMAGE_NAMES: tuto:1.0.0 tuto:latest
   stage: docker-build
   extends:
     - .kaniko:build-push
