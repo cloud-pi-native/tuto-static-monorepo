@@ -1,5 +1,4 @@
 include:
-  - local: ./ci/includes/rules.yml
   - project: $CATALOG_PATH
     file: vault-ci.yml
     ref: main
