@@ -1,5 +1,5 @@
 apiVersion: v2
-name: template
+name: tuto-static-monorepo
 description: A Helm chart to deploy ...
 type: application
 keywords: []
@@ -15,4 +15,4 @@ maintainers:
 deprecated: false
 annotations: {}
 version: 1.0.0
-appVersion: "1.0.0" # x-release-please-version
+appVersion: "1.0.0"

@@ -21,7 +21,7 @@ spec:
         {{- include "template.frontend.selectorLabels" . | nindent 8 }}
     spec:
       imagePullSecrets:
-        - name: {{- .Values.frontend.image.pullSecret }}
+        - name: "{{- .Values.frontend.image.pullSecret }}"
       serviceAccountName: {{ include "template.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.frontend.podSecurityContext | nindent 8 }}
