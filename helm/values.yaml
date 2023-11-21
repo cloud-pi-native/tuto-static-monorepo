@@ -1,23 +1,59 @@
-imageCredentials:
-  registry: 
-  username: 
-  password: 
-  email: 
+nameOverride: ""
+fullnameOverride: ""
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
 
-client:
-  container:
-    image: docker.io/org/image:latest
-    port: 8080
-    imagePullPolicy: Always
+frontend:
+  replicaCount: 1
+  image:
+    repository: ghcr.io/org/image
+    pullPolicy: Always
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: "latest"
+    pullSecret: registry-pull-secret
+  podAnnotations: {}
+  podSecurityContext: {}
+    # fsGroup: 2000
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
   service:
+    type: ClusterIP
     port: 80
-    hostname: client
+  container:
+    port: 8080
   ingress:
     enabled: true
-    hosts:
-    - tuto-static.domain.com
-    tls:
-      enabled: true
-      secretName:
+    className: ""
     annotations: {}
-    labels: {}
+    hosts:
+      - host: tuto-static.domain.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []
+    #  - secretName: tuto-static.domain.com
+    #    hosts:
+    #      - tuto-static.domain.com
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
